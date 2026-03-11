@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THR Lebaran</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Merienda:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:'Poppins',sans-serif;
+text-align:center;
+background:linear-gradient(180deg,#0f9d58,#ffd600);
+margin:0;
+color:white;
+overflow-x:hidden;
+}
+
+/* bintang */
+.star{
+position:fixed;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:0.2}
+50%{opacity:1}
+100%{opacity:0.2}
+}
+
+/* partikel */
+.spark{
+position:fixed;
+width:6px;
+height:6px;
+background:gold;
+border-radius:50%;
+opacity:0.7;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+100%{transform:translateY(-100vh)}
+}
+
+/* ucapan */
+.ucapan{
+font-family:'Merienda',cursive;
+font-size:20px;
+}
+
+/* masjid */
+.masjid{
+position:fixed;
+bottom:0;
+width:100%;
+opacity:0.15;
+}
+
+/* bulan */
+.bulan{
+position:fixed;
+top:40px;
+right:60px;
+font-size:60px;
+}
+
+/* lentera */
+.lentera{
+position:fixed;
+top:0;
+left:20%;
+font-size:40px;
+animation:goyang 3s infinite ease-in-out;
+}
+
+.lentera2{
+position:fixed;
+top:0;
+right:20%;
+font-size:40px;
+animation:goyang 4s infinite ease-in-out;
+}
+
+@keyframes goyang{
+0%{transform:translateY(0);}
+50%{transform:translateY(20px);}
+100%{transform:translateY(0);}
+}
+
+/* card */
+.card{
+background:linear-gradient(160deg,#0f9d58,#087f45);
+border:2px solid gold;
+width:380px;
+margin:120px auto;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+opacity:0;
+transform:translateY(20px);
+transition:all 1.2s ease;
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+h2{
+color:#ffd700;
+}
+
+/* input */
+input{
+padding:12px;
+width:80%;
+border-radius:8px;
+border:none;
+outline:none;
+text-align:center;
+transition:0.3s;
+}
+
+input:focus{
+box-shadow:0 0 10px gold;
+}
+
+/* tombol */
+button{
+padding:10px 20px;
+margin-top:15px;
+border:none;
+border-radius:8px;
+background:#ffd700;
+color:#064e2b;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+button:hover{
+background:#ffea70;
+transform:scale(1.05);
+}
+
+/* qris */
+img{
+width:230px;
+margin-top:20px;
+border-radius:10px;
+}
+
+.zoom{
+animation:zoom 1s;
+}
+
+@keyframes zoom{
+from{transform:scale(0);}
+to{transform:scale(1);}
+}
+
+.center{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="musik" loop>
+<source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<div class="bulan">🌙</div>
+<div class="lentera">🏮</div>
+<div class="lentera2">🏮</div>
+
+<img class="masjid" src="https://i.ibb.co/0Jmshvb/mosque.png">
+
+<!-- halaman 1 -->
+<div class="card show" id="page1">
+
+<h2>Masukkan Nama Kamu</h2>
+
+<div class="center">
+<input type="text" id="nama" placeholder="Tulis nama kamu">
+<button onclick="halaman2()">Lanjut</button>
+</div>
+
+</div>
+
+<!-- halaman 2 -->
+<div class="card" id="page2">
+
+<h2 id="ucapan"></h2>
+
+<p class="ucapan">
+Selamat Hari Raya Idul Fitri 🙏 <br>
+Mohon maaf lahir dan batin atas segala salah dan khilaf.
+Semoga hari kemenangan ini membawa kebahagiaan
+dan keberkahan untuk kita semua.
+</p>
+
+<br>
+
+<p class="ucapan">
+Pergi ke pasar membeli ketupat <br>
+Tidak lupa membeli kelapa <br>
+Kalau ada rezeki di hari lebaran <br>
+Boleh dong kirim THR sedikit 😆
+</p>
+
+<button onclick="halaman3()">Kasih THR 💸</button>
+
+</div>
+
+<!-- halaman 3 -->
+<div class="card" id="page3">
+
+<h2>Terima Kasih 😁</h2>
+
+<p>Silakan scan QRIS di bawah ini</p>
+
+<img id="qris" src="qris.png">
+
+<p>Semoga rezekinya makin lancar 🙏</p>
+
+<button onclick="kembali()">Kembali ke Menu</button>
+
+</div>
+
+<script>
+
+/* bintang */
+for(let i=0;i<70;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*window.innerHeight+"px";
+star.style.left=Math.random()*window.innerWidth+"px";
+document.body.appendChild(star);
+}
+
+/* partikel */
+for(let i=0;i<30;i++){
+let s=document.createElement("div");
+s.className="spark";
+s.style.left=Math.random()*window.innerWidth+"px";
+s.style.top=Math.random()*window.innerHeight+"px";
+document.body.appendChild(s);
+}
+
+function halaman2(){
+
+let nama=document.getElementById("nama").value;
+
+document.getElementById("ucapan").innerHTML=
+"Selamat Hari Raya "+nama+" 🎉";
+
+document.getElementById("musik").play();
+
+document.getElementById("page1").classList.remove("show");
+
+setTimeout(()=>{
+document.getElementById("page1").style.display="none";
+document.getElementById("page2").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("page2").classList.add("show");
+},100);
+
+},900);
+
+}
+
+function halaman3(){
+
+document.getElementById("page2").classList.remove("show");
+
+setTimeout(()=>{
+document.getElementById("page2").style.display="none";
+document.getElementById("page3").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("page3").classList.add("show");
+document.getElementById("qris").classList.add("zoom");
+confetti();
+},100);
+
+},900);
+
+}
+
+function kembali(){
+
+document.getElementById("page3").style.display="none";
+document.getElementById("page1").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("page1").classList.add("show");
+},100);
+
+document.getElementById("nama").value="";
+
+}
+
+function confetti(){
+
+for(let i=0;i<100;i++){
+
+let c=document.createElement("div");
+
+c.style.position="fixed";
+c.style.width="8px";
+c.style.height="8px";
+c.style.background="hsl("+Math.random()*360+"deg,100%,50%)";
+c.style.top="-10px";
+c.style.left=Math.random()*window.innerWidth+"px";
+c.style.opacity="0.8";
+c.style.borderRadius="50%";
+
+document.body.appendChild(c);
+
+let fall=Math.random()*3+2;
+
+c.animate(
+[{transform:"translateY(0)"},{transform:"translateY(100vh)"}],
+{duration:fall*1000,iterations:1}
+);
+
+setTimeout(()=>{c.remove()},4000);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
